@@ -1,0 +1,17 @@
+Train ID,Distance,TrainName,Frequency,StartTime,EndTime
+101,300,Acela Express,1,8:00:00,10:20:00
+102,450,Northeast Regional,1,9:30:00,12:30:00
+103,250,Capitol Limited,1,7:45:00,8:45:00
+104,400,California Zephyr,1,8:15:00,10:15:00
+105,350,Coast Starlight,1,8:45:00,10:45:00
+106,550,Empire Builder,1,10:00:00,1:00:00
+107,320,Southwest Chief,1,7:30:00,10:00:00
+108,420,Texas Eagle,1,8:30:00,10:30:00
+109,370,Lake Shore Limited,1,9:00:00,11:00:00
+110,480,Cardinal,1,10:15:00,12:15:00
+111,400,City of New Orleans,1,7:15:00,9:15:00
+112,510,Sunset Limited,1,8:45:00,11:45:00
+113,320,Silver Service/Palmetto,1,9:30:00,11:30:00
+114,410,Auto Train,1,10:00:00,12:00:00
+115,360,Amtrak Cascades,1,8:00:00,10:00:00
+116,490,Downeaster,1,8:30:00,11:30:00

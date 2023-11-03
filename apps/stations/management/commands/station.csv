@@ -1,0 +1,16 @@
+station_id,station_name,station_code,address,zone				
+1,New York Penn Station,NYC001,123 Main Street, New York,Zone A				
+2,Los Angeles Union Station,LAX002,456 Elm Avenue, Los Angeles,Zone B				
+3,Chicago Union Station,CHI003,789 Oak Road, Chicago,Zone C				
+4,San Francisco Caltrain Station,SFO004,101 Pine Lane, San Francisco,Zone D				
+5,Washington Union Station,WAS005,202 Maple Drive, Washington, D.C.,Zone E				
+6,Boston South Station,BOS006,303 Cedar Street, Boston,Zone F				
+7,Philadelphia 30th Street Station,PHL007,404 Birch Court, Philadelphia,Zone G				
+8,Atlanta Amtrak Station,ATL008,505 Redwood Circle, Atlanta,Zone H				
+9,Dallas Union Station,DAL009,606 Spruce Lane, Dallas,Zone I				
+10,Denver Union Station,DEN010,707 Fir Road, Denver,Zone J				
+11,Seattle King Street Station,SEA011,808 Willow Avenue, Seattle,Zone K				
+12,Miami Central Station,MIA012,909 Poplar Drive, Miami,Zone L				
+13,Houston Amtrak Station,HOU013,1010 Birch Street, Houston,Zone M				
+14,Phoenix Union Station,PHX014,1111 Pine Road, Phoenix,Zone N				
+15,New Orleans Union Passenger Terminal,NOL015,1212 Oak Lane, New Orleans,Zone O				

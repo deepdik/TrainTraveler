@@ -1,0 +1,10 @@
+AmenityId,AmenityName,AmenityDescription,image,isactive
+1,Priority Boarding,More Importance to the Passengers,,TRUE
+2,Complementary Meals,Food for the Passengers,,TRUE
+3,Extra Legroom,Free spaced Seats,,TRUE
+4,Wifi,High-speed Internet Access,,TRUE
+5,Power Outlets,In-train Power Access,,TRUE
+6,Cafe,Snacks and Beverages,,TRUE
+7,Video Screen,Entertainment and Games,,TRUE
+8,Medication,Incase of the emergency,,TRUE
+9,Pet care,Pet care,,TRUE

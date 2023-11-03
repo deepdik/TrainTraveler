@@ -1,0 +1,16 @@
+TicketId ,PhoneNo,TrainId,FromStation,ToStation,FromDate,ToDate,ClassId,Fare
+1,123-456-7890,101,Los Angeles Union Station,Washington Union Station,10/8/2023,10/8/2023,6,300
+2,987-654-3210,101,Chicago Union Station,Miami Central Station,10/8/2023,10/08/2023,2,150
+3,555-555-5555,101,Dallas Union Station,Chicago Union Station,10/8/2023,10/08/2023,7,45
+4,444-333-2222,112,Chicago Union Station,Houston Amtrak Station,10/11/2023,10/11/2023,4,200
+5,888-999-7777,115,Philadelphia 30th Street Station,Seattle King Street Station,10/12/2023,10/12/2023,1,50
+6,777-888-9999,116,New York Penn Station,New Orleans Union Passenger Terminal,10/16/2023,10/16/2023,7,45
+7,111-222-3333,106,Denver Union Station,San Francisco Caltrain Station,10/9/2023,10/9/2023,9,500
+8,222-333-4444,103,Chicago Union Station,New York Penn Station,10/8/2023,10/8/2023,1,50
+9,666-555-4444,102,Boston South Station,Dallas Union Station,10/10/2023,10/10/2023,8,60
+10,333-444-5555,103,Dallas Union Station,Seattle King Street Station,10/8/2023,10/8/2023,5,180
+11,555-444-3333,104,Houston Amtrak Station,Washington Union Station,10/12/2023,10/12/2023,7,45
+12,777-666-5555,106,Phoenix Union Station,Atlanta Amtrak Station,10/9/2023,10/9/2023,1,50
+13,222-111-3333,103,Seattle King Street Station,Dallas Union Station,10/8/2023,10/8/2023,2,150
+14,888-777-6666,105,Denver Union Station,Miami Central Station,10/15/2023,10/15/2023,3,250
+15,111-555-6666,111,Houston Amtrak Station,Boston South Station,10/11/2023,10/11/2023,5,180
