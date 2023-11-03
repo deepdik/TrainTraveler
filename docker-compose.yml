@@ -1,0 +1,21 @@
+
+
+version: "3.8"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: train_traveler
+    command: sh -c "python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8002"
+
+    volumes:
+      - ${PWD}:/app
+      - ${PWD}/static:/app/static
+      - ${PWD}/media:/app/media
+    ports:
+      - 8002:8002
+    restart: "on-failure"
+    environment:
+      - ENV=DEV
