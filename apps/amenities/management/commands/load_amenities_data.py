@@ -14,7 +14,7 @@ class Command(BaseCommand):
         command_dir = os.path.dirname(__file__)
 
         # Specify the relative path to the CSV file in the same directory
-        csv_file = os.path.join(command_dir, 'amenities.csv')
+        csv_file = os.path.join(command_dir, 'Amenities.csv')
         self.insert_amenities_from_csv(csv_file)
 
     def insert_amenities_from_csv(self, csv_file):
