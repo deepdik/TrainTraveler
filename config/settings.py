@@ -96,6 +96,7 @@ DATABASES = {
         'USER': 'admin',
         'PASSWORD': 'admin@123',
         'HOST': 'localhost',
+        # 'HOST': 'host.docker.internal',
         'PORT': '',
     }
 }

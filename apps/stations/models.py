@@ -11,6 +11,9 @@ class Station(models.Model):
     def __str__(self):
         return self.station_name
 
+    class Meta:
+        db_table = 'station'
+
 
 class Route(models.Model):
     station = models.ForeignKey('stations.Station', on_delete=models.CASCADE)
@@ -24,3 +27,6 @@ class Route(models.Model):
 
     def __str__(self):
         return f"{self.station.station_name} on Train {self.train.train_name}"
+
+    class Meta:
+        db_table = 'route'

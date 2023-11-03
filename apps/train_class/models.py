@@ -10,3 +10,6 @@ class TrainClass(models.Model):
 
     def __str__(self):
         return self.class_name
+
+    class Meta:
+        db_table = 'train_class'

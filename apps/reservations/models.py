@@ -23,6 +23,8 @@ class TicketReservation(models.Model):
     class Meta:
         unique_together = ('ticket_id', 'train', 'user', 'class_id')
 
+    class Meta:
+        db_table = 'ticket_reservation'
 
 class SeatAvailability(models.Model):
     train = models.ForeignKey(Train, on_delete=models.CASCADE)
@@ -36,3 +38,6 @@ class SeatAvailability(models.Model):
 
     def __str__(self):
         return f"Train: {self.train.train_name}, Class: {self.class_id.class_name}, Date: {self.start_date}"
+
+    class Meta:
+        db_table = 'seat_availability'
