@@ -1,0 +1,143 @@
+body {
+    background-color: #f8f9fa;
+    margin-top: 20px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.container-down {
+    margin-top: 8rem !important;
+    margin-bottom: 10rem !important;
+}
+
+.container {
+    margin-bottom: 20px;
+}
+
+.filter-section {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+
+.search-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+
+
+
+.card {
+    margin-bottom: 20px;
+    border: none; /* Remove the border */
+    border-radius: 15px; /* Add more rounded corners */
+    overflow: hidden; /* Hide overflowing content within the card */
+}
+
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px;
+    border-radius: 15px 15px 0 0; /* Rounded top corners */
+}
+
+.card-img {
+    width: 100%;
+    height: 200px; /* Set a fixed height for the image */
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-text {
+    color: #495057;
+}
+
+.class-fares {
+    margin-top: 20px;
+}
+
+.book-now-btn {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px; /* Make the button smaller */
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+
+
+/* Added Styles for Improved UI */
+.train-details {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.row-cols-md-4 .col-md-4 {
+    flex: 0 0 32%; /* Adjust the column width */
+    max-width: 32%; /* Adjust the maximum width */
+}
+
+.duration {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color:#096387;
+}
+
+
+
+a {
+
+    color: white !important;
+}
+
+.layout-color {
+    color: #096387 !important;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #096387;
+    border-color: #096387;
+}
+.col-md-4.text-center {
+    position: relative;
+}
+
+.col-md-4.text-center .duration {
+    display: inline-block;
+    position: relative;
+}
+
+.col-md-4.text-center .duration::before,
+.col-md-4.text-center .duration::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 20px; /* Adjust the width of the lines as needed */
+    height: 2px; /* Adjust the height of the lines as needed */
+    background-color: #000; /* Adjust the color of the lines as needed */
+}
+
+.col-md-4.text-center .duration::before {
+    left: -30px; /* Adjust the distance of the line from the text as needed */
+}
+
+.col-md-4.text-center .duration::after {
+    right: -30px; /* Adjust the distance of the line from the text as needed */
+}

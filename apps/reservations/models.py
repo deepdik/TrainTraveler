@@ -7,6 +7,11 @@ from django.core.validators import MinValueValidator
 
 
 class TicketReservation(models.Model):
+    TICKET_STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Confirmed', 'Confirmed'),
+        ('Cancelled', 'Cancelled'),
+    ]
     ticket_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     train = models.ForeignKey(Train, on_delete=models.CASCADE)
@@ -16,9 +21,11 @@ class TicketReservation(models.Model):
     to_date = models.DateField()
     class_id = models.ForeignKey(TrainClass, on_delete=models.CASCADE)
     fare = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)])
+    status = models.CharField(max_length=20, choices=TICKET_STATUS_CHOICES, default='Pending')
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Ticket ID: {self.ticket_id}, Train: {self.train.train_name}, Phone: {self.phoneno}"
+        return f"Ticket ID: {self.ticket_id}, Train: {self.train.train_name}, Phone: {self.user}"
 
     class Meta:
         unique_together = ('ticket_id', 'train', 'user', 'class_id')
@@ -26,18 +33,30 @@ class TicketReservation(models.Model):
     class Meta:
         db_table = 'ticket_reservation'
 
-class SeatAvailability(models.Model):
-    train = models.ForeignKey(Train, on_delete=models.CASCADE)
-    class_id = models.ForeignKey(TrainClass, on_delete=models.CASCADE)
-    start_date = models.DateField()
-    total_seats = models.IntegerField(validators=[MinValueValidator(1)])
-    booked_seats = models.IntegerField()
+
+class Passenger(models.Model):
+    ticket_id = models.ForeignKey('TicketReservation', on_delete=models.CASCADE, related_name="passengers")
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    dob = models.DateField()
 
     class Meta:
-        unique_together = ('train', 'class_id', 'start_date')
+        db_table = 'ticket_passenger'
+
+
+class SeatAvailability(models.Model):
+    train = models.ForeignKey(Train, on_delete=models.CASCADE, related_name="train_seat_availability")
+    class_id = models.ForeignKey(TrainClass, on_delete=models.CASCADE, related_name="class_seat_availability")
+
+    total_seats = models.IntegerField(validators=[MinValueValidator(1)])
+    # booked_seats = models.IntegerField()
+
+    class Meta:
+        unique_together = ('train', 'class_id',)
 
     def __str__(self):
-        return f"Train: {self.train.train_name}, Class: {self.class_id.class_name}, Date: {self.start_date}"
+        return f"Train: {self.train.train_name}, Class: {self.class_id.class_name}"
 
     class Meta:
         db_table = 'seat_availability'
+

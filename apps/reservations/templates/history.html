@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_level_plugins %}
+   <link href="{% static '/reservation/base.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block page_content %}
+
+    <div class="container container-down">
+        <h2 class="mt-4">Ticket History</h2>
+
+        {% for ticket in booked_tickets %}
+        <!-- Example Card for Ticket History -->
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <h3>{{ticket.train.train_name}} ({{ticket.train.train_id}})</h3>
+            </div>
+            <div class="card-body">
+                <!-- Ticket Details -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Ticket ID:</strong> {{ticket.ticket_id}}</p>
+                        <p><strong>Number of Passengers: {{ticket.num_passengers}}</strong> </p>
+                        <p><strong>Form Station:</strong> {{ticket.from_station}}</p>
+                        <p><strong>To Station:</strong> {{ticket.to_station}}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Train Details -->
+                        <p><strong>Departure Date:</strong> {{ticket.from_date}}</p>
+                        <p><strong>Ticket Price:</strong> $ {{ticket.fare}}</p>
+                        <p><strong>Class Id:</strong> {{ticket.class_id.class_name}}</p>
+                        <p><strong>Booked Date:</strong> {{ticket.created_at |date:'Y-m-d'}}</p>
+                        <p><strong>Booking Status:</strong> {{ticket.status }}</p>
+                    </div>
+                </div>
+                <!-- Cancel Button -->
+
+            {% if ticket.from_date >= today_date %}
+            <button type="button" class="btn btn-danger mt-3">Cancel</button>
+            {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

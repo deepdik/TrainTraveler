@@ -1,0 +1,11 @@
+.my-5 {
+margin-top: 8rem !important;
+    margin-bottom: 10rem !important;
+
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #096387;
+    border-color: #096387;
+}

@@ -18,7 +18,7 @@ class Amenities(models.Model):
 
 
 class AmenitiesClass(models.Model):
-    class_id = models.ForeignKey(TrainClass, on_delete=models.CASCADE)
+    class_id = models.ForeignKey(TrainClass, on_delete=models.CASCADE, related_name="class_amenities")
     amenity = models.ForeignKey(Amenities, on_delete=models.CASCADE)
 
     def __str__(self):

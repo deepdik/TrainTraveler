@@ -16,8 +16,8 @@ class Station(models.Model):
 
 
 class Route(models.Model):
-    station = models.ForeignKey('stations.Station', on_delete=models.CASCADE)
-    train = models.ForeignKey('trains.Train', on_delete=models.CASCADE)
+    station = models.ForeignKey('stations.Station', on_delete=models.CASCADE, related_name="routes_station")
+    train = models.ForeignKey('trains.Train', on_delete=models.CASCADE, related_name="routes_train")
     arrival_time = models.TimeField(blank=True, null=True)
     departure_time = models.TimeField(blank=True, null=True)
     sequence_no = models.IntegerField()

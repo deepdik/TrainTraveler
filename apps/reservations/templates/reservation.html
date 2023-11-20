@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_level_plugins %}
+   <link href="{% static '/reservation/base.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block page_content %}
+
+    <div class="container container-down">
+        <form id="reservationForm" action="{% url 'reservation' %}" method="post">
+            {% csrf_token %}
+            <!-- Combined Train, Ticket, and Payment Information -->
+            <div class="card mt-4">
+                <div class="card-header text-white bg-info">
+                    <h2>Booking Information</h2>
+                </div>
+                <div class="row card-body">
+                <!-- Left Column -->
+                <div class="col-md-6">
+                    <!-- Booking Information -->
+                    <input type="hidden" name="train" value="{{ train.train_id }}">
+                    <input type="hidden" name="from_station" value="{{ from_station }}">
+                    <input type="hidden" name="to_station" value="{{ to_station }}">
+                    <input type="hidden" name="from_date" value="{{ from_date }}">
+                    <input type="hidden" name="to_date" value="{{ to_date }}">
+                    <input type="hidden" name="class_id" value="{{ class_id.class_id }}">
+                    <input type="hidden" name="base_fare" id="base_fare" value="{{ class_id.fare }}">
+                    <input type="hidden" name="total_fare" id="total_fare" value=0>
+
+
+                    <p><strong>Train:</strong> {{ train.train_name }}</p>
+                    <p><strong>From Station:</strong> {{from_station }}</p>
+                    <p><strong>To Station:</strong> {{to_station }}</p>
+                    <p><strong>Journey Start Date:</strong> {{from_date }}</p>
+                    <p><strong>Journey End Date:</strong> {{ to_date }}</p>
+
+
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-md-6">
+                    <p><strong>Class:</strong> {{class_id.class_name}}</p>
+                    <p><strong>Base Fare :</strong> <span > ${{ class_id.fare }}</span></p>
+                    <p><strong>Number of Passenger:</strong> <span id="numTickets">0</span></p>
+                    <p><strong>Total Ticket Price:</strong> $<span id="totalFare">0.00</span></p>
+                </div>
+    </div>
+            </div>
+
+            <!-- Passenger Information Card -->
+            <div class="card mt-4">
+                <div class="card-header bg-info text-white">
+                    <h2>Passenger Information</h2>
+                </div>
+                <div class="card-body">
+                    <!-- Display existing passengers -->
+                    <div id="passengerList" class="mb-3">
+                        <!-- Dummy data for demonstration purposes -->
+                    </div>
+
+                    <!-- Add New Passenger Form -->
+                    <div class="mb-3">
+                        <h3>Add New Passenger</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="first_name">First Name:</label>
+                                <input type="text" class="form-control" id="first_name">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="last_name">Last Name:</label>
+                                <input type="text" class="form-control" id="last_name">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="dob">Date of Birth:</label>
+                                <input type="date" class="form-control" id="dob">
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn bg-info mt-4" onclick="addPassenger()">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Information Card -->
+            <div class="card mt-4">
+                <div class="card-header bg-primary text-white">
+                    <h2>Payment</h2>
+                </div>
+                <div class="card-body">
+                    <!-- Add payment form here -->
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <input type="text" class="form-control" id="cardNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expirationDate">Expiration Date</label>
+                        <input type="text" class="form-control" id="expirationDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" class="form-control" id="cvv" required>
+                    </div>
+                    <button type="submit" class="btn bg-primary text-white mt-3">Submit Payment</button>
+                </div>
+            </div>
+        </form>
+
+        <script>
+            function addPassenger() {
+                const firstName = document.getElementById('first_name').value;
+                const lastName = document.getElementById('last_name').value;
+                const dob = document.getElementById('dob').value;
+
+                const passengerList = document.getElementById('passengerList');
+
+                const newPassengerDiv = document.createElement('div');
+                newPassengerDiv.innerHTML = `
+                    <div>
+                        <p><strong>New Passenger:</strong> ${firstName} ${lastName} (DOB: ${dob})</p>
+                        <input type="hidden" name="passenger_first_name" value="${firstName}">
+                        <input type="hidden" name="passenger_last_name" value="${lastName}">
+                        <input type="hidden" name="passenger_dob" value="${dob}">
+                    </div>
+                `;
+
+                passengerList.appendChild(newPassengerDiv);
+
+                // Clear the input fields
+                document.getElementById('first_name').value = '';
+                document.getElementById('last_name').value = '';
+                document.getElementById('dob').value = '';
+
+                // Update the number of tickets and total fare
+                updateTicketInfo();
+            }
+
+            function removePassenger() {
+                const passengerList = document.getElementById('passengerList');
+
+                if (passengerList.childElementCount > 0) {
+                    passengerList.removeChild(passengerList.lastChild);
+
+                    // Update the number of tickets and total fare
+                    updateTicketInfo();
+                }
+            }
+
+            function updateTicketInfo() {
+                const numTicketsElement = document.getElementById('numTickets');
+                const totalFareElement = document.getElementById('totalFare');
+
+                const baseFareElement = document.getElementById('base_fare');
+
+                const totalElement = document.getElementById('total_fare');
+
+                const numTickets = document.getElementById('passengerList').childElementCount;
+                const currentTotalFare = parseFloat(totalFareElement.innerText);
+                const newFare = (numTickets * baseFareElement.value); // Update with your logic
+                totalElement.value = newFare
+                numTicketsElement.innerText = numTickets;
+                totalFareElement.innerText = newFare.toFixed(2);
+            }
+        </script>
+    </div>
+
+{% endblock %}

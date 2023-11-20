@@ -1,0 +1,34 @@
+.my-5 {
+margin-top: 8rem !important;
+
+}
+
+body {
+  background-image: url(/media/661783.jpeg);
+  background-size: cover;
+  background-position: center;
+}
+
+.layout-color {
+    color: #096387 !important;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #096387;
+    border-color: #096387;
+}
+
+.modal-dialog {
+  position: relative;
+  top: 20%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-content {
+  background-color: #fff;
+  border: 1px solid #999;
+  padding: 20px;
+}
+
+

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_level_plugins %}
+   <link href="{% static '/user/base.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block page_content %}
+<main class="container my-5">
+    <div class="card">
+        <div class="card-header layout-color text-white text-center">
+            <h2>Book Your Ticket</h2>
+        </div>
+        <div class="card-body">
+            <form class="row g-3" method="get" action="{% url 'search_trains' %}">
+                <div class="col-md-6">
+                    <label for="from">From</label>
+                    <select class="form-control" id="from_station" name="from_station_id">
+                        <option value="" selected disabled>Select From Station</option>
+                        {% for station in stations %}
+                            <option value="{{ station.station_id }}">{{ station.station_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="to">To</label>
+                    <select class="form-control" id="to_station" name="to_station_id">
+                        <option value="" selected disabled>Select To Station</option>
+                        {% for station in stations %}
+                            <option value="{{ station.station_id }}">{{ station.station_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="class">Class</label>
+                    <select class="form-control" id="class" name="class_id">
+                         <option value="">All classes</option>
+                        {% for train_class in classes %}
+                            <option value="{{ train_class.class_id }}">{{ train_class.class_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="journeyDate">Journey Date</label>
+                    <input type="date" class="form-control" id="journeyDate" name="travel_date" value="{% now 'Y-m-d' %}">
+                </div>
+                <input type="hidden"  name="sort_by" value="departureTime">
+                <input type="hidden"  name="add_ons">
+
+                <div class="col-md-12 layout-color">
+                    <button type="submit" class="btn btn-primary">Book Now</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}

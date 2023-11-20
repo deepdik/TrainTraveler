@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_level_plugins %}
+   <link href="{% static '/trains/base.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block page_content %}
+
+    <div class="container container-down">
+        <!-- Filter Section -->
+        <form method="get" action="{% url 'search_trains' %}" class="row mb-3 filter-section">
+            <div class="col-md-3">
+                <label for="sortSelect" class="form-label">Sort by:</label>
+                <select id="sortSelect" class="form-select" name="sort_by">
+                    <option value="shortestTrip" {% if sort_by == 'shortestTrip' %}selected{% endif %}>Shortest Trip</option>
+                    <option value="departureTime" {% if sort_by == 'departureTime' %}selected{% endif %}>Departure Time</option>
+                    <!-- Add more sorting options as needed -->
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="classSelect" class="form-label">Class of Service:</label>
+
+              <select id="classSelect" class="form-select" name="class_id">
+                <option value="">All classes</option>
+                {% for train_class in classes %}
+                    <option value="{{ train_class.class_id }}" {% if train_class.class_id == class_id|add:"0" %}selected{% endif %}>
+                        {{ train_class.class_name }}
+                    </option>
+                {% endfor %}
+                <!-- Add more class options as needed -->
+            </select>
+            </div>
+            <div class="col-md-3">
+                <label for="addonsSelect" class="form-label">Add-ons:</label>
+                <select id="addonsSelect" class="form-select" name="add_ons" multiple >
+                    {% for addon in addons %}
+                        <option value="{{ addon.amenity_id }}">{{ addon.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="journeyDate">Journey Date</label>
+                <input type="date" class="form-control" id="journeyDate" name="travel_date" value="{{ travel_date|date:'Y-m-d' }}">
+            </div>
+
+
+            <input type="hidden"  name="from_station_id" value="{{from_station_id}}">
+            <input type="hidden"  name="to_station_id" value="{{to_station_id}}">
+            <div class="col-md-12 mt-3">
+                <button type="submit" class="search-btn btn-primary">Search</button>
+            </div>
+        </form>
+
+        {% for train in trains %}
+        <div class="card">
+            <!-- Part 1: Train Journey Information -->
+            <div class="card-header d-flex justify-content-between align-items-center btn-primary ">
+                <div>{{ train.train_name }} ({{ train.train_id }})</div>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#routeStationsModal{{ train.train_id }}">
+                    Trains Routes
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="row train-details">
+                    <!-- Departure Information -->
+                    <div class="col-md-4">
+                        <p class="card-text"><strong>Departure Time:</strong> {{ train.departure_time }}</p>
+                        <p class="card-text"><strong>Departure Location:</strong> {{ train.from_station.station_name }}</p>
+                    </div>
+
+                    <!-- Duration Information -->
+                    <div class="col-md-4 text-center" >
+                        <p class="duration">{{ train.duration }} Minute</p>
+                    </div>
+
+                    <!-- Arrival Information -->
+                    <div class="col-md-4 text-end">
+                        <p class="card-text"><strong>Arrival Time:</strong> {{ train.arrival_time }}</p>
+                        <p class="card-text"><strong>Arrival Location:</strong> {{ train.to_station.station_name }}</p>
+                    </div>
+                </div>
+
+                <!-- Part 2: Class Fares and Book Now Buttons -->
+                <div class="class-fares mt-3">
+                    <h6>Class Fares:</h6>
+                    <div class="row row-cols-md-4">
+
+                        {% for seat in train.seat_availabilities %}
+                            <div class="col-md-3">
+                                <p class="card-text"><strong>{{ seat.class_id.class_name }}:</strong> $ {{ seat.class_id.fare }}</p>
+                            <p class="card-text"><strong>Seats Available:</strong> {{ seat.seat_available }}</p>
+
+                                <form method="get" action="{% url 'reservation' %}">
+                                    <input type="hidden" name="train_id" value="{{ train.train_id }}">
+                                    <input type="hidden" name="from_station" value="{{ train.from_station.station_name }}">
+                                    <input type="hidden" name="to_station" value="{{ train.to_station.station_name }}">
+                                    <input type="hidden" name="from_date" value="{{ train.d_from_date |date:'Y-m-d'}}">
+                                    <input type="hidden" name="to_date" value="{{ train.a_to_date |date:'Y-m-d' }}">
+                                    <input type="hidden" name="class_id" value="{{ seat.class_id.class_id }}">
+
+                                   <button class="btn btn-primary book-now-btn" type="submit" >Book Now</button>
+                                </form>
+
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <!-- Route Stations Modal with Progress Bar and Table -->
+    <div class="modal fade" id="routeStationsModal" tabindex="-1" aria-labelledby="routeStationsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="routeStationsModalLabel">Route Stations</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Station details table -->
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Station</th>
+                                <th>Arrival Time</th>
+                                <th>Departure Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="active">
+                                <td>Station 1</td>
+                                <td>2:30 PM</td>
+                                <td>2:35 PM</td>
+                            </tr>
+                            <tr>
+                                <td>Station 2</td>
+                                <td>3:00 PM</td>
+                                <td>3:05 PM</td>
+                            </tr>
+                            <!-- Add more station details as needed -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    </div>
+
+{% endblock %}

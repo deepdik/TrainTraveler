@@ -1,0 +1,101 @@
+body {
+    background-color: #f8f9fa;
+    margin-top: 20px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.container {
+    margin-bottom: 20px;
+}
+
+.filter-section {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.filter-section:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.search-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.search-btn:hover {
+    background-color: #0056b3;
+}
+
+.card {
+    margin-bottom: 20px;
+    border: none; /* Remove the border */
+    border-radius: 15px; /* Add more rounded corners */
+    overflow: hidden; /* Hide overflowing content within the card */
+}
+
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px;
+    border-radius: 15px 15px 0 0; /* Rounded top corners */
+}
+
+.card-img {
+    width: 100%;
+    height: 200px; /* Set a fixed height for the image */
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-text {
+    color: #495057;
+}
+
+.class-fares {
+    margin-top: 20px;
+}
+
+.book-now-btn {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px; /* Make the button smaller */
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.book-now-btn:hover {
+    background-color: #218838;
+}
+
+/* Added Styles for Improved UI */
+.train-details {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.row-cols-md-4 .col-md-4 {
+    flex: 0 0 32%; /* Adjust the column width */
+    max-width: 32%; /* Adjust the maximum width */
+}
+
+.duration {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+}
