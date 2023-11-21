@@ -95,8 +95,8 @@ DATABASES = {
         'NAME': 'train_traveler',
         'USER': 'admin',
         'PASSWORD': 'admin@123',
-        'HOST': 'localhost',
-        # 'HOST': 'host.docker.internal',
+        # 'HOST': 'localhost',
+        'HOST': 'host.docker.internal',
         'PORT': '',
     }
 }

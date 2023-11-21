@@ -3,8 +3,10 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.password_validation import validate_password
 from django.core import validators
 from django.core.mail import send_mail
-from django.db import models
+from django.db import models, connections
 from django.utils import timezone
+from django.db.models import Func
+
 
 GENDER_CHOICES = (
     ('Male', 'Male'),
@@ -54,6 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         error_messages={
             'unique': 'A user with that phone number already exists.',
         },
+        db_index=True,
     )
     password = models.CharField(
         'password',
@@ -93,16 +96,31 @@ class User(AbstractBaseUser, PermissionsMixin):
         permissions = (
         )
         ordering = ['date_joined']
+        indexes = [
+            models.Index(fields=['phone_no',])
+        ]
 
     # Use Either one of __str__ methods.
     def __str__(self):
         return '{phone_no}'.format(phone_no=self.phone_no)
 
-    def calculate_age(self, *args, **kwargs):
+    class CalculateAge(Func):
+        function = 'calculate_age'
+        template = '%(function)s(%(expressions)s)'
+        output_field = models.IntegerField()
+
+    def get_age(self):
         """
-        Sends an email to this User.
+        Get user age using the PostgreSQL function.
         """
-        pass
+        return User.objects.annotate(age=User.CalculateAge('dob')).filter(id=self.id).values('age').first()['age']
+
+    def add_user_email(self, email):
+        """
+        Add user email using the PostgreSQL stored procedure.
+        """
+        with connections['default'].cursor() as cursor:
+            cursor.execute('CALL AddUserEmail(%s, %s)', [str(self.phone_no), email])
 
 
 class UserEmail(models.Model):

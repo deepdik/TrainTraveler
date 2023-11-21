@@ -68,10 +68,15 @@ class ProfileView(View):
 
     def post(self, request, *args, **kwargs):
         user = request.user
+        emails = request.POST.getlist("emails[]")
         form = UserProfileForm(request.POST, instance=user)
         print(form.errors)
         if form.is_valid():
             form.save()
+            email_count = user.emails.count()
+            for idx, email in enumerate(emails):
+                if idx >= email_count:
+                    user.add_user_email(email)
 
         return redirect('profile')
 

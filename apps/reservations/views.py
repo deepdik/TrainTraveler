@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.contrib.auth.decorators import login_required
+from django.db import connections
 from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -97,5 +98,26 @@ class BookedTicketsView(View):
 
     def get(self, request, *args, **kwargs):
         user = request.user
+        # Define your raw SQL query
+        raw_sql_query = """
+            SELECT
+                ticket_id,
+                from_date,
+                to_date,
+                class_id_id AS class_id,
+                num_passengers
+            FROM
+                booked_tickets_view
+            WHERE
+                user_id = %s
+            ORDER BY
+                ticket_id DESC
+        """
+
+        # Use the database connection to execute the raw SQL query
+        with connections['default'].cursor() as cursor:
+            cursor.execute(raw_sql_query, [user.phone_no])
+            result = cursor.fetchall()
+
         booked_tickets = TicketReservation.objects.filter(user=user).annotate(num_passengers=Count('passengers')).order_by("-ticket_id")
-        return render(request, self.template_name, {'booked_tickets': booked_tickets, 'today_date': date.today()})
+        return render(request, self.template_name, {'booked_tickets': booked_tickets, 'today_date': date.today() , "result": result})

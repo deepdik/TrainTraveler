@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.contrib.admin import AdminSite
 from django.urls import path, include
 
+from apps.reservations.admin import olap_admin_site
 from config import settings
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('olap-admin/', olap_admin_site.urls),
     path('', include('apps.users.urls')),
     path('train/', include('apps.trains.urls')),
     path('reservation/', include('apps.reservations.urls')),

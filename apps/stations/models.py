@@ -3,7 +3,7 @@ from django.db import models
 
 class Station(models.Model):
     station_id = models.AutoField(primary_key=True)
-    station_name = models.CharField(max_length=50)
+    station_name = models.CharField(max_length=50, db_index=True)
     station_code = models.CharField(max_length=10, unique=True)
     address = models.TextField()
     zone = models.CharField(max_length=20)
@@ -13,6 +13,9 @@ class Station(models.Model):
 
     class Meta:
         db_table = 'station'
+        indexes = [
+            models.Index(fields=['station_name']),
+        ]
 
 
 class Route(models.Model):
