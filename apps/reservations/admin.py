@@ -46,7 +46,6 @@ class OLAPAdmin(admin.AdminSite):
             path('cumulative-bookings/', self.admin_view(self.cumulative_bookings_view), name='cumulative_bookings'),
             path('train-count/', self.admin_view(self.train_count_view), name='train_count'),
             path('revenue-share/', self.admin_view(self.revenue_share_view), name='revenue_share'),
-
         ]
         return olap_urls + urls
 
